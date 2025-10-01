@@ -127,13 +127,6 @@ graph TB
 - **🛡️ Validation**: Configuration validation on startup
 - **📋 Examples**: Clear templates for secure setup
 
-## 📈 Performance
-
-- **⚡ Search Speed**: ~100ms query execution
-- **🧠 Embedding Generation**: ~0.45s per product
-- **💾 Storage**: 768 floats per product (~6KB per embedding)
-- **🔍 Accuracy**: Semantic matching with cosine similarity
-
 ## 🛠️ Development
 
 ### **Adding New Features**
@@ -150,9 +143,9 @@ python check_vector_table.py
 |----------|-------------|---------|
 | `FIREBOLT_CLIENT_ID` | Service account ID | *Required* |
 | `FIREBOLT_CLIENT_SECRET` | Service account secret | *Required* |
-| `FIREBOLT_ACCOUNT` | Account name | `se-demo-account` |
-| `FIREBOLT_DATABASE` | Database name | `experimental_john` |
-| `FIREBOLT_ENGINE` | Engine name | `ecommerceengine` |
+| `FIREBOLT_ACCOUNT` | Account name | `your-account-name` |
+| `FIREBOLT_DATABASE` | Database name | `your-database-name` |
+| `FIREBOLT_ENGINE` | Engine name | `your-engine-name` |
 | `OLLAMA_URL` | Ollama service URL | `http://localhost:11434` |
 
 ## 🤝 Contributing

@@ -22,9 +22,9 @@ class FireboltConfig:
         # 🌐 Firebolt Cloud Configuration
         self.CLOUD_CLIENT_ID = self._get_env_var('FIREBOLT_CLIENT_ID')
         self.CLOUD_CLIENT_SECRET = self._get_env_var('FIREBOLT_CLIENT_SECRET')
-        self.CLOUD_ACCOUNT = self._get_env_var('FIREBOLT_ACCOUNT', default='se-demo-account')
-        self.CLOUD_DATABASE = self._get_env_var('FIREBOLT_DATABASE', default='experimental_john')
-        self.CLOUD_ENGINE = self._get_env_var('FIREBOLT_ENGINE', default='ecommerceengine')
+        self.CLOUD_ACCOUNT = self._get_env_var('FIREBOLT_ACCOUNT', default='your-account-name')
+        self.CLOUD_DATABASE = self._get_env_var('FIREBOLT_DATABASE', default='your-database-name')
+        self.CLOUD_ENGINE = self._get_env_var('FIREBOLT_ENGINE', default='your-engine-name')
         self.CLOUD_TABLE = self._get_env_var('FIREBOLT_TABLE', default='home_depot_semantic_search')
         
         # 🤖 AI/Embedding Configuration  

@@ -198,6 +198,41 @@ class HomeDepotLoader:
                     print(f"❌ Error loading product {row['product_id']}: {e}")
                     continue
     
+    def check_table_exists(self):
+        """Verify that the target table exists and has vector index"""
+        print("🔍 Checking database table setup...")
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                # Check if table exists
+                cursor.execute(f"DESCRIBE {config.CLOUD_TABLE}")
+                schema = cursor.fetchall()
+                
+                # Verify required columns
+                column_names = [col[0].lower() for col in schema]
+                required_columns = ['product_id', 'title', 'description', 'brand', 'price', 'embedding']
+                
+                missing_columns = [col for col in required_columns if col not in column_names]
+                if missing_columns:
+                    print(f"❌ Missing required columns: {missing_columns}")
+                    return False
+                
+                # Check if embedding column is correct type
+                embedding_col = next((col for col in schema if col[0].lower() == 'embedding'), None)
+                if embedding_col and 'ARRAY' not in embedding_col[1]:
+                    print(f"❌ Embedding column has wrong type: {embedding_col[1]} (should be ARRAY)")
+                    return False
+                
+                print("✅ Table structure validated")
+                print("✅ Ready for data loading")
+                return True
+                
+        except Exception as e:
+            print(f"❌ Table check failed: {e}")
+            print("💡 Run 'python setup_database.py' first to create the table")
+            return False
+
     def load_dataset(self):
         """Main loading function"""
         print("🚀 STARTING HOME DEPOT DATASET LOADING")
@@ -211,6 +246,11 @@ class HomeDepotLoader:
         # Check prerequisites
         if not CSV_PATH.exists():
             print(f"❌ CSV file not found: {CSV_PATH}")
+            return False
+        
+        if not self.check_table_exists():
+            print("❌ Database table not ready")
+            print("💡 Please run: python setup_database.py")
             return False
         
         if not self.check_ollama_service():

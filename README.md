@@ -39,16 +39,27 @@ cp .env.example .env
 #   FIREBOLT_CLIENT_SECRET=your_client_secret
 ```
 
-### 4. **Validate Setup**
+### 4. **Setup Database** ⚠️ **ORDER MATTERS!**
+```bash
+# STEP 1: Create table structure with vector index (MUST be first!)
+python setup_database.py
+
+# STEP 2: Load sample dataset (500 Home Depot products)
+python load_home_depot_dataset.py
+```
+
+> 🔥 **Critical**: Vector index must be created on empty table for optimal performance!
+
+### 5. **Validate Setup**
 ```bash
 # Test configuration
 python config.py
 
-# Verify database connection  
+# Verify database and data
 python check_vector_table.py
 ```
 
-### 5. **Run Application**
+### 6. **Run Application**
 ```bash
 # Start the demo
 streamlit run streamlit_cloud_app.py
@@ -112,6 +123,7 @@ graph TB
 ├── 📋 .env.example                  # Configuration template  
 ├── 🚫 .gitignore                    # Security protection
 ├── ⚙️ config.py                     # Secure configuration
+├── 🏗️ setup_database.py             # Database & vector index setup
 ├── 🎯 streamlit_cloud_app.py        # Main application
 ├── 📊 check_vector_table.py         # Database utility
 ├── 📤 load_home_depot_dataset.py    # Data loader
